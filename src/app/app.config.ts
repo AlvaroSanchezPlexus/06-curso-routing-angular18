@@ -1,5 +1,5 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter, withComponentInputBinding, withViewTransitions } from '@angular/router';
+import { provideRouter, withComponentInputBinding, withInMemoryScrolling, withViewTransitions } from '@angular/router';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
@@ -8,7 +8,11 @@ export const appConfig: ApplicationConfig = {
     provideRouter(
       routes,
       withComponentInputBinding(), // Permite recibir parámetros como @Input()
-      withViewTransitions() // Animaciones de transición entre rutas
+      withViewTransitions(), // Animaciones de transición entre rutas
+      withInMemoryScrolling({      // Gestión de scroll suave
+        scrollPositionRestoration: 'enabled',
+        anchorScrolling: 'enabled'
+      })
     )
   ]
 };

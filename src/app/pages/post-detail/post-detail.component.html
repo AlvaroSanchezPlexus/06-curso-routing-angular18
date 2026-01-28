@@ -1,0 +1,11 @@
+<div class="detail-container">
+  @if (id) {
+    <h1>📖 Leyendo el Post #{{ id }}</h1>
+    <p class="content">
+      Aquí iría el contenido cargado desde un servicio para el ID {{ id }}.
+    </p>
+  }
+  <button routerLink="/blog" [queryParamsHandling]="'preserve'">
+    ← Volver al blog (sin perder filtros)
+  </button>
+</div>

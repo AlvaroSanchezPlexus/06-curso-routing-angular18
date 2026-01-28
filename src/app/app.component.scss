@@ -2,31 +2,33 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
-  padding: 1rem;
-  background-color: #333;
-}
-
-.navbar a {
+  padding: 1rem 5%;
+  background: #2c3e50;
   color: white;
-  text-decoration: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  transition: background-color 0.3s;
+
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+
+    a {
+      color: #bdc3c7;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+
+      &.active {
+        color: white;
+        border-bottom: 2px solid #3498db;
+      }
+
+      &:hover {
+        color: #3498db;
+      }
+    }
+  }
 }
 
-.navbar a:hover {
-  background-color: #555;
-}
-
-.navbar a.active {
-  background-color: #007bff;
-}
-
-.logout {
-  cursor: pointer;
-}
-
-main {
-  padding: 2rem;
+.content {
+  padding: 2rem 5%;
 }

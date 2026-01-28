@@ -1,0 +1,19 @@
+<div class="dashboard-container">
+  <aside class="sidebar">
+    <h2>Panel</h2>
+    <nav>
+      <a routerLink="stats" routerLinkActive="active-link">📊 Estadísticas</a>
+      <a routerLink="settings" routerLinkActive="active-link"
+        >⚙️ Configuración</a
+      >
+    </nav>
+
+    <div class="sidebar-footer">
+      <button (click)="irAHome()">Volver al Inicio</button>
+    </div>
+  </aside>
+
+  <main class="dashboard-content">
+    <router-outlet />
+  </main>
+</div>

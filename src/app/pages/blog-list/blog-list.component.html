@@ -1,0 +1,39 @@
+<div class="blog-container">
+  <header>
+    <h1>📰 Blog de Noticias</h1>
+
+    <div class="search-bar">
+      <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        (input)="onFilterChange()"
+        placeholder="Buscar artículo..."
+      />
+
+      <select [(ngModel)]="selectedCategory" (change)="onFilterChange()">
+        <option value="">Todas las categorías</option>
+        <option value="tecnologia">Tecnología</option>
+        <option value="cocina">Cocina</option>
+        <option value="viajes">Viajes</option>
+      </select>
+
+      <button class="btn-clear" (click)="clearFilters()">Limpiar</button>
+    </div>
+  </header>
+
+  <div class="posts-grid">
+    @for (post of filteredPosts(); track post.id) {
+      <div class="post-card">
+        <h3>{{ post.title }}</h3>
+        <span class="badge">{{ post.category }}</span>
+        <a [routerLink]="['/blog', post.id]" [queryParamsHandling]="'preserve'">
+          Leer más →
+        </a>
+      </div>
+    } @empty {
+      <p class="no-results">
+        No se han encontrado artículos con esos criterios.
+      </p>
+    }
+  </div>
+</div>

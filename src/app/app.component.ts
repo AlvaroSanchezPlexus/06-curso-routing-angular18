@@ -12,10 +12,5 @@ import { CommonModule } from '@angular/common';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'Angular 18 Routing';
-  authService = inject(AuthService);
-
-  logout() {
-    this.authService.logout();
-  }
+  public readonly title: string = 'Angular 18 Routing';
 }

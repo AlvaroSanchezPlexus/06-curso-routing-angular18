@@ -1,42 +1,40 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule],
-  template: `
-    <div class="dashboard-container">
-      <h1>Bienvenido, {{ authService.currentUser()?.username }}!</h1>
-      <p>Este es tu panel de control privado.</p>
-      <button (click)="logout()">Cerrar Sesión</button>
-    </div>
-  `,
-  styles: [`
-    .dashboard-container {
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 2rem;
-      background: #f9f9f9;
-      border-radius: 8px;
-      text-align: center;
-    }
-    button {
-      margin-top: 1.5rem;
-      padding: 0.75rem 1.5rem;
-      background-color: #dc3545;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-  `]
+  imports: [RouterOutlet],
+  templateUrl: './dashboard.component.html',
+  styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
-  authService = inject(AuthService);
+  private _router = inject(Router);
+  private _activatedRoute = inject(ActivatedRoute);
+  searchTerm: any;
+  selectedCategory: any;
 
-  logout() {
-    this.authService.logout();
+  public goToSection(section: string) {
+    this._router.navigate(['/dashboard', 'stats'], { fragment: section });
+  }
+  public onFilterChange(): void {
+    const term = this.searchTerm().trim();
+
+    if (term.length > 0 && term.length < 3) {
+      console.warn('El término de búsqueda es muy corto');
+      return; 
+    }
+
+    this._router.navigate([], {
+      relativeTo: this._activatedRoute,
+      queryParams: {
+        search: term || null,
+        category: this.selectedCategory() || null
+      },
+      queryParamsHandling: 'merge'
+    });
+  }
+  public irAHome(): void {
+    this._router.navigate(['/home']);
   }
 }
