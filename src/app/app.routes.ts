@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home.component';
 import { AboutComponent } from './pages/about/about.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
@@ -22,52 +21,47 @@ export const routes: Routes = [
   { path: '', redirectTo: `/${AppRoutes.HOME}`, pathMatch: 'full' },
   {
     path: AppRoutes.HOME,
-    component: HomeComponent,
+    loadComponent: () => import('./pages/home/home.component').then(c => c.HomeComponent),
     title: 'Inicio | Mi App'
   },
   {
     path: AppRoutes.PRODUCTS,
-    component: HomeComponent, 
+    loadComponent: () => import('./pages/products/product-list.component').then(c => c.ProductListComponent),
     title: 'Productos | Calidad Premium'
   },
   {
-    path: AppRoutes.SERVICES,
-    component: HomeComponent,
-    title: 'Servicios | Lo que hacemos'
-  },
-  {
     path: AppRoutes.BLOG,
-    component: BlogListComponent,
+    loadComponent: () => import('./pages/blog-list/blog-list.component').then(c => c.BlogListComponent),
     title: 'Blog | Noticias'
   },
   {
     path: AppRoutes.ABOUT,
-    component: AboutComponent,
+    loadComponent: () => import('./pages/about/about.component').then(c => c.AboutComponent),
     title: 'Sobre nosotros'
   },
   {
     path: AppRoutes.CONTACT,
-    component: ContactComponent,
+    loadComponent: () => import('./pages/contact/contact.component').then(c => c.ContactComponent),
     title: 'Contacto'
   },
   {
     path: 'blog',
-    component: BlogListComponent,
+    loadComponent: () => import('./pages/blog-list/blog-list.component').then(c => c.BlogListComponent),
     title: 'Mi Blog | Listado'
   },
   {
-    path: 'blog/:id',
-    component: PostDetailComponent,
+    path: 'blog/:userId',
+    loadComponent: () => import('./pages/posts/post-detail.component').then(c => c.PostDetailComponent),
     title: 'Leyendo Post...'
   },
-  { path: '', redirectTo: '/blog', pathMatch: 'full' },
   {
     path: 'dashboard',
-    component: DashboardComponent,
+    loadComponent: () => import('./pages/dashboard/dashboard.component').then(c => c.DashboardComponent),
+    title: 'Panel de Control',
     children: [
-      { path: 'stats', component: StatsComponent },
-      { path: 'settings', component: SettingsComponent },
-      { path: '', redirectTo: 'stats', pathMatch: 'full' }
+      { path: '', redirectTo: 'stats', pathMatch: 'full' },
+      { path: 'stats', loadComponent: () => import('./pages/dashboard/stats/stats.component').then(c => c.StatsComponent) },
+      { path: 'settings', loadComponent: () => import('./pages/dashboard/settings/settings.component').then(c => c.SettingsComponent) },
     ]
   },
   {
